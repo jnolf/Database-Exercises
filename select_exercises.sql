@@ -1,8 +1,9 @@
 USE albums_db;
+#SHOW TABLES IN CLI
 
 SELECT *
 FROM albums;
-# 5 rows in database
+# 31 rows in database
 
 SELECT COUNT(DISTINCT artist)
 FROM albums;
@@ -22,13 +23,14 @@ FROM albums
 WHERE artist = 'Pink Floyd';
 #DSotM and The Wall
 
-SELECT *
-FROM albums;
+SELECT release_date
+FROM albums
+WHERE NAME = 'Sgt. Pepper\'s Lonely Hearts Club Band';
 #In 1967
 
-SELECT *
+SELECT genre
 FROM albums
-WHERE NAME = "Nevermind";
+WHERE NAME = 'Nevermind';
 #Grunge, Alt Rock
 
 SELECT *
@@ -43,5 +45,5 @@ WHERE sales < 20;
 
 SELECT *
 FROM albums
-WHERE genre = "Rock";
-# Because the word "Hard" isn't inculded in my "...".
+WHERE genre = 'Rock';
+# Because the word "Hard" isn't inculded IN my "...".
