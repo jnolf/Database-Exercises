@@ -3,18 +3,20 @@ USE employees;
 #2
 SELECT DISTINCT title
 FROM titles;
+--OR
+SELECT title FROM titles GROUP BY title;
 -- 7 distinct titles
 
 #3
 SELECT last_name
 FROM employees
-WHERE last_name LIKE 'e%' AND last_name LIKE '%e' 
+WHERE last_name LIKE 'e%e'
 GROUP BY last_name;
 
 #4
 SELECT first_name, last_name
 FROM employees
-WHERE first_name LIKE 'e%' AND last_name LIKE '%e' 
+WHERE last_name LIKE 'e%e' 
 GROUP BY first_name, last_name;
 
 #5
@@ -25,14 +27,14 @@ AND NOT last_name LIKE '%qu%'
 GROUP BY last_name;
 
 #6
-SELECT last_name, count(last_name) AS same_last_name
+SELECT last_name, count(*) AS same_last_name
 FROM employees
 WHERE last_name LIKE '%q%' 
-AND NOT last_name LIKE '%qu%'
+AND last_name NOT LIKE '%qu%'
 GROUP BY last_name;
 
 #7
-SELECT first_name, gender, count(*) AS same_first_name
+SELECT first_name, gender, count(*) 
 FROM employees
 WHERE first_name IN ('Irena', 'Vidya', 'Maya')
 GROUP BY first_name, gender
@@ -59,30 +61,33 @@ USE employees;
 SELECT *
 FROM salaries;
 
-SELECT salary, emp_no
+-- Group by function 
+SELECT emp_no, AVG(salary)
 FROM salaries
-GROUP BY emp_no, salary
-ORDER BY AVG(salary);
+GROUP BY emp_no;
 
 
 SELECT *
 FROM dept_emp;
 
-SELECT dept_no, count(dept_no) AS dept_count
+-- Count how mant employees in departments 
+SELECT dept_no, count(*)
 FROM dept_emp
+WHERE TO_DATE > NOW()
 GROUP BY dept_no;
 
-SELECT emp_no, count(salary) AS no_of_salaries
+-- Count differences
+SELECT emp_no, count(*)
 FROM salaries
 GROUP BY emp_no;
 
 -- Max
-SELECT emp_no, max(salary) AS highest_salary
+SELECT emp_no, MAX(salary) AS highest_salary
 FROM salaries
 GROUP BY emp_no;
 
 -- Min
-SELECT emp_no, min(salary) AS lowest_salary
+SELECT emp_no, MIN(salary) AS lowest_salary
 FROM salaries
 GROUP BY emp_no;
 
@@ -101,6 +106,7 @@ HAVING emp_salary > 150000;
 SELECT emp_no, max(salary) AS avg_salary_80_to_90
 FROM salaries
 GROUP BY emp_no
-HAVING avg_salary_80_to_90 BETWEEN 80000 AND 90000;
+HAVING avg_salary_80_to_90 BETWEEN 80000 AND 90000
+ORDER BY avg_salary_80_to_90;
 
 
