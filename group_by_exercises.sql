@@ -76,23 +76,28 @@ SELECT emp_no, count(salary) AS no_of_salaries
 FROM salaries
 GROUP BY emp_no;
 
+-- Max
 SELECT emp_no, max(salary) AS highest_salary
 FROM salaries
 GROUP BY emp_no;
 
+-- Min
 SELECT emp_no, min(salary) AS lowest_salary
 FROM salaries
 GROUP BY emp_no;
 
+-- Standard Deviation
 SELECT emp_no, STDDEV(salary) AS STDDEV_salary
 FROM salaries
 GROUP BY emp_no;
 
+-- Max with range
 SELECT emp_no, max(salary) AS emp_salary
 FROM salaries
 GROUP BY emp_no
 HAVING emp_salary > 150000;
 
+-- Range of average
 SELECT emp_no, max(salary) AS avg_salary_80_to_90
 FROM salaries
 GROUP BY emp_no
