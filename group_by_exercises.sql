@@ -40,8 +40,11 @@ WHERE first_name IN ('Irena', 'Vidya', 'Maya')
 GROUP BY first_name, gender
 ORDER BY  first_name;
 
-#8
-SELECT LOWER(
+#8 **********************
+SELECT count(t.user_name),
+SUM(t.dups)
+FROM
+(SELECT LOWER(
     CONCAT(
               SUBSTR(first_name,1, 1),
               SUBSTR(last_name,1,4),
@@ -52,7 +55,7 @@ AS user_name,
 FROM employees
 GROUP BY user_name
 HAVING dups > 1
-ORDER BY dups DESC; 
+ORDER BY dups DESC) AS t; 
 -- Yes. There are 13251 usernames duplicated.
 
 #9
