@@ -62,10 +62,16 @@ WHERE emp_no IN(
 
 
 #6
-
-SELECT *
+(SELECT COUNT(salary) AS sal_in_1
 FROM salaries
- WHERE ;
+WHERE salary >= (
+SELECT MAX(salary) - STDDEV(salary) 
+FROM salaries 
+WHERE to_date > NOW()) AND to_date > NOW())
+/
+(SELECT COUNT(salary) AS num_sal
+FROM salaries
+WHERE to_date > NOW()) * 100 AS percent_of_salaries;
 
  
  SELECT *
