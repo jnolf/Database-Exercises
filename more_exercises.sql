@@ -53,9 +53,12 @@ SELECT *
 FROM customer
 WHERE active = '0' OR last_name LIKE 'M%';
 
--- f.
+-- f. ******
 SELECT *
 FROM category AS c;
 WHERE category_id > 4 AND c.name LIKE ('C%', 'S%', 'T%');
+
+
+
 
 
