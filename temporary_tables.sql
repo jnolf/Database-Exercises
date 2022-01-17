@@ -81,14 +81,34 @@ FROM sakila_payment_table;
 
 
 #3 
--- Create current table
-CREATE TEMPORARY TABLE 
+USE innis_1657;
+USE employees;
 
--- Create historical table
-CREATE TEMPORARY TABLE current_info AS(
-SELECT dept_name, avg_salary AS departments)
+-- Mess up? Probably...
+DROP TABLE innis_1657.dept_avg_salary;
 
--- Z-score = (current-historical)/historical
+-- Create average dept salary temp
+CREATE TEMPORARY TABLE innis_1657.dept_avg_salary AS
+SELECT d.dept_name AS Department, AVG(s.salary) AS avg_dept_sal
+FROM departments d 
+JOIN dept_emp de USING (dept_no)
+JOIN employees e USING (emp_no)
+JOIN salaries s USING (emp_no)
+WHERE s.to_date > NOW()
+GROUP BY d.dept_name;
 
+-- Verify work
+SELECT *
+FROM innis_1657.dept_avg_salary;
+
+-- Find zscore per department
+SELECT Department, avg_dept_sal, (avg_dept_sal - (
+  SELECT AVG(salary) 
+  FROM salaries))
+  /
+  (SELECT STDDEV(salary) 
+  FROM salaries) AS zscore
+FROM innis_1657.dept_avg_salary
+ORDER BY zscore DESC;
 
 
